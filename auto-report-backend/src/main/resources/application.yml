@@ -1,0 +1,138 @@
+spring:
+  application:
+    name: auto-report-backend
+    
+  # 数据源配置
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/auto_report
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+    timeout: 3000ms
+  
+  # 缓存配置
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: false
+  
+  # 安全配置
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/auto-report
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      timeout: 1800
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+# 日志配置
+logging:
+  level:
+    com.stardustbi: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/auto-report.log
+
+# 自定义配置
+stardust:
+  bi:
+    # AI配置
+    ai:
+      nlp:
+        model-path: classpath:models/opennlp
+        confidence-threshold: 0.7
+      prediction:
+        default-model: arima
+        forecast-period: 30
+    
+    # 数据源配置
+    datasource:
+      max-connections: 10
+      connection-timeout: 30000
+      validation-query: SELECT 1
+    
+    # 查询配置
+    query:
+      max-results: 10000
+      timeout: 300000
+      cache-enabled: true
+    
+    # 预警配置
+    alert:
+      check-interval: 60000
+      max-alerts-per-minute: 100
+      retention-days: 90
+    
+    # 文件存储
+    storage:
+      base-path: ./data/storage
+      temp-path: ./data/temp
+      max-file-size: 104857600
+
+# OpenAPI配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  packages-to-scan: com.stardustbi.controller
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json

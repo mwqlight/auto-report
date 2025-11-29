@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: auto-report-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: auto_report
+      MYSQL_USER: auto_report_user
+      MYSQL_PASSWORD: auto_report_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - auto-report-network
+
+  # Redis缓存
+  redis:
+    image: redis:6.2-alpine
+    container_name: auto-report-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - auto-report-network
+
+  # 后端应用
+  backend:
+    build:
+      context: ./auto-report-backend
+      dockerfile: Dockerfile
+    container_name: auto-report-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/auto_report?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: auto_report_user
+      SPRING_DATASOURCE_PASSWORD: auto_report_password
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      JWT_SECRET: your-secret-key-change-in-production
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./logs/backend:/app/logs
+    networks:
+      - auto-report-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 前端应用
+  frontend:
+    build:
+      context: ./auto-report-frontend
+      dockerfile: Dockerfile
+    container_name: auto-report-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - auto-report-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx反向代理（可选，用于生产环境）
+  nginx:
+    image: nginx:alpine
+    container_name: auto-report-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - auto-report-network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  auto-report-network:
+    driver: bridge

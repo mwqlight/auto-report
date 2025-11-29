@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STARDUST BI - 智能决策宇宙</title>
+    <meta name="description" content="BI智能分析平台，提供全息数据驾驶舱、自然语言查询、AI异常预测等先进功能" />
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- 主题色 -->
+    <meta name="theme-color" content="#070a17">
+    
+    <!-- 移动端优化 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <style>
+      /* 初始加载样式 */
+      body {
+        margin: 0;
+        padding: 0;
+        background: #070a17;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+      }
+      
+      #app {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+      
+      /* 加载动画 */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #070a17;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      
+      .loading-logo {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #5e60ff;
+        text-shadow: 0 0 20px #5e60ff;
+        margin-bottom: 2rem;
+        animation: pulse 2s infinite;
+      }
+      
+      .loading-text {
+        color: #e6f0ff;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      
+      .loading-bar {
+        width: 200px;
+        height: 4px;
+        background: rgba(94, 96, 255, 0.3);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      
+      .loading-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #5e60ff, #00e7ff);
+        border-radius: 2px;
+        animation: loading 2s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      
+      @keyframes loading {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="loading-container">
+        <div class="loading-logo">STARDUST<span style="color: #00e7ff">BI</span></div>
+        <div class="loading-text">正在启动智能决策宇宙...</div>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

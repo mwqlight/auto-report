@@ -1,0 +1,200 @@
+/* 全局样式变量定义 */
+:root {
+  /* 颜色系统 - 宇宙主题 */
+  --color-primary: #6366f1;      /* 主色调 - 深紫色 */
+  --color-primary-light: #818cf8;
+  --color-primary-dark: #4f46e5;
+  
+  --color-secondary: #8b5cf6;    /* 次要色 - 紫色 */
+  --color-accent: #06b6d4;       /* 强调色 - 青色 */
+  
+  /* 背景色 */
+  --color-bg-primary: #0f172a;   /* 主背景 - 深空蓝黑 */
+  --color-bg-secondary: #1e293b; /* 次要背景 - 深蓝灰 */
+  --color-bg-tertiary: #334155;  /* 三级背景 - 中灰蓝 */
+  --color-bg-overlay: rgba(15, 23, 42, 0.8); /* 遮罩背景 */
+  
+  /* 文字颜色 */
+  --color-text-primary: #f8fafc;   /* 主文字 - 白色 */
+  --color-text-secondary: #cbd5e1; /* 次文字 - 浅灰 */
+  --color-text-tertiary: #94a3b8;  /* 三级文字 - 中灰 */
+  --color-text-muted: #64748b;     /* 弱化文字 - 深灰 */
+  
+  /* 边框颜色 */
+  --color-border-primary: #334155;   /* 主边框 */
+  --color-border-secondary: #475569; /* 次边框 */
+  --color-border-light: #64748b;     /* 亮边框 */
+  
+  /* 功能色 */
+  --color-success: #10b981;      /* 成功 - 绿色 */
+  --color-warning: #f59e0b;      /* 警告 - 黄色 */
+  --color-error: #ef4444;        /* 错误 - 红色 */
+  --color-info: #3b82f6;         /* 信息 - 蓝色 */
+  
+  /* 图表色板 */
+  --color-chart-1: #6366f1;      /* 图表色1 */
+  --color-chart-2: #8b5cf6;      /* 图表色2 */
+  --color-chart-3: #06b6d4;      /* 图表色3 */
+  --color-chart-4: #10b981;      /* 图表色4 */
+  --color-chart-5: #f59e0b;      /* 图表色5 */
+  --color-chart-6: #ef4444;      /* 图表色6 */
+  --color-chart-7: #3b82f6;      /* 图表色7 */
+  --color-chart-8: #ec4899;      /* 图表色8 */
+  
+  /* 渐变 */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+  --gradient-cosmic: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --gradient-hologram: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4, #10b981);
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  --shadow-neon: 0 0 10px rgba(139, 92, 246, 0.5);
+  
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+  
+  /* 间距 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  
+  /* 字体 */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-accent: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-family-chart: 'Arial', sans-serif;
+  
+  /* 字体大小 */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  /* 字体粗细 */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* 行高 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* 动画 */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* 层级 */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  --z-index-toast: 1080;
+  
+  /* 布局 */
+  --header-height: 64px;
+  --sidebar-width: 280px;
+  --context-panel-width: 320px;
+  --status-bar-height: 40px;
+}
+
+/* 重置样式 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  overflow-x: hidden;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-secondary);
+}
+
+/* 链接样式 */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+/* 表单元素样式 */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  transition: all var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-muted);
+}
